@@ -2,6 +2,7 @@ import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
 
 const list = [
+    {key:"Penelope", value:"Penelope", text: "Penelope [spanish - American]"},
     {key:"Ivy", value:"Ivy", text: "Ivy [English - American]"},
     {key:"Joanna", value:"Joanna", text: "Joanna [English - American]"},
     {key:"Joey", value:"Joey", text: "Joey [English - American]"},
