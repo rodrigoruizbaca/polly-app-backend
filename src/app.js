@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import configureStore from './store/configure-store';
-import PostGridComponent from './components/grid-component';
+import ContainerComponent from './components/post-container-component';
 
 const store = configureStore();
 
@@ -13,7 +13,7 @@ class App extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <PostGridComponent/>
+                <ContainerComponent/>
             </Provider>
             
         );

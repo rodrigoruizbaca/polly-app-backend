@@ -2,7 +2,6 @@ import React from 'react';
 import { Icon, Label, Menu, Table } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {getPostsAsync} from '../actions/post-action';
-import VoiceListComponent from './voice-list-component';
 
 const Loading = (props) => {
     return (        
@@ -15,7 +14,6 @@ class PostGridComponent extends React.Component {
         return (
             <div> 
                 <Loading loading={this.props.loading}></Loading>
-                <VoiceListComponent></VoiceListComponent>
                 <Table celled>
                     <Table.Header>
                         <Table.Row>
@@ -34,10 +32,27 @@ class PostGridComponent extends React.Component {
                                         <Table.Cell>{post.id}</Table.Cell>
                                         <Table.Cell>{post.voice}</Table.Cell>
                                         <Table.Cell>{post.text}</Table.Cell>
+                                        
                                         <Table.Cell>{post.status}</Table.Cell>
-                                        <Table.Cell>
-                                            <audio controls><source src={post.url} type='audio/mpeg'/></audio>
-                                        </Table.Cell>
+                                        {
+                                            post.status === 'DONE' ? (
+                                            <Table.Cell>
+                                                <audio controls><source src={post.url} type='audio/mpeg'/></audio>
+                                            </Table.Cell>
+                                            ): (                                               
+                                                this.props.processing.processingFlag && this.props.processing.id === post.id ? (
+                                                    <Table.Cell warning>
+                                                       <Icon name='attention' />
+                                                       The  url is being processing
+                                                    </Table.Cell>    
+                                                ) : (
+                                                    <Table.Cell>
+                                                        &nbsp;
+                                                    </Table.Cell>    
+                                                )
+                                                
+                                            )                                            
+                                        }
                                     </Table.Row>   
                                 )
                             })
@@ -54,7 +69,7 @@ class PostGridComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => {    
-    return {'posts': state.posts, 'loading': state.loading};
+    return {'posts': state.posts, 'loading': state.loading, 'processing': state.processing};
 };
 
 export default connect(mapStateToProps)(PostGridComponent);
